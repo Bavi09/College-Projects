@@ -1,0 +1,51 @@
+Soil Moisture Sensor Project
+
+
+This project is mainly focused on finding the amount of water present in the soil.This project gets into dept about soil moisture sensors and how to use it Arduino.
+
+
+Soil Moisture Sensor has four pins named Vcc, GND, Aout and Dout.
+
+1. Aout gives the analog data about the moisture levels in the soil.
+
+2. Dout gives the Digital Data pin, gives binary info about the soil moisture status level.
+
+Hardware Set Up:
+
+1. Connect the Sensor to the Arduino by connecting
+   
+  a. Vcc of sensor to 5v in Ardunio
+
+  b. GND of sensor to GND of Arduino
+  
+  c. Aout of sensor to any analog pin of Arduino
+
+  d. Dout of sensor to ant digital pin of Arduino
+
+Working:
+
+When we keep Soil moisture sensor probe into soil, it checks how much water is in there. Most soil moisture sensors are designed to estimate soil volumetric water content 
+based on the dielectric constant of the soil. The dielectric constant can be thought of as the soil's ability to transmit electricity.The probe has two metal bits that
+measure how easily electricity flow through the soil. More water means easier flow.
+
+Code:
+
+
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input on analog pin 0:
+  int sensorValue = analogRead(A0);
+  // print out the value you read:
+  Serial.println(sensorValue);
+  delay(1);        // delay in between reads for stability
+}
+
+
+Output:
+
+It will display the water level od the soil in Arduino IDE software in the desktop.

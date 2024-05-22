@@ -1,0 +1,89 @@
+Obstacle Avoiding Car:
+
+Avoiding obstacles is a key job in robotics, where autonomous robots aim to reach their destination without bumping into things.
+
+This project aims at spotting obstacles in their path and figure out new paths to move without running into them. 
+
+Ultrasonic sensor plays a key role in this project. It sends out 40kHz ultrasonic signals that bounce back when they hit an object. 
+
+By analyzing the returning echoes, the sensor calculates distances between the car and obstacles in real-time.
+
+COMPONENTS:
+
+1. Ultrasonic Sensor
+
+2. Servo Motor
+
+3. Arduino UNO
+
+4. L298M Motor Driver
+
+5. DC motors
+
+6. Switch
+
+7. Jumper Wires
+
+Working:
+
+When the power supply is connected to the Arduino, the motors start rotating and the car starts moving.
+As soon as the car reaches near an obstacle, there is a threshold distance set by the user in the Arduino code. 
+If the distance of the obstacle is below this threshold then the ultrasonic sensor sends a signal to the Arduino.
+As soon as Arduino gets the signal from the ultrasonic sensor, it sends the signal to the motor driver to stop rotating the motors.
+After this, it again sends the signal to the motor driver to turn the car to the left side. 
+And the car is turned to the left side till the point when there is no obstacle in front of the car. The car again starts moving forward 
+and moves forward till it finds another obstacle. The above process is repeated till the power supply is cut off.
+
+Code:
+
+const int trigPin = 11;
+const int echoPin = 10;
+const int in1 = 9;
+const int in2 = 8;
+const int in3 = 4;
+const int in4 = 3;
+
+void setup() 
+{
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode (in1, OUTPUT);
+  pinMode (in2, OUTPUT);
+  pinMode (in3, OUTPUT);
+  pinMode (in4, OUTPUT);
+}
+long duration, distance;
+
+void loop()
+{     
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);  
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration/58.2;
+  if(distance<30)
+    {
+      digitalWrite(in1, HIGH); 
+      digitalWrite(in2, LOW); 
+      digitalWrite(in3, LOW); 
+      digitalWrite(in4, HIGH);
+      delay(1200);
+    }
+    
+  else
+    {
+      digitalWrite(in1, HIGH); 
+      digitalWrite(in2, LOW); 
+      digitalWrite(in3, HIGH); 
+      digitalWrite(in4, LOW);
+    }  
+  delay(0);
+}
+
+
+Output:
+
+If the sensor detets the obstacle in its path, it will change the direction of the motor.
+
